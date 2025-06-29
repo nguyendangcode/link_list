@@ -56,10 +56,6 @@ void remove_node(node** head_ref, int index) {
     for(int i = 0; current != NULL && i < index - 1; i++) {
         current = current->next;
     }
-    if(current == NULL || current->next == NULL) {
-        printf("Vị trí không hợp lệ!\n");
-        return;
-    }
     node* next_node = current->next->next;
     free(current->next);
 	current->next = next_node;
@@ -85,8 +81,8 @@ int main() {
 
 	insert_at_index(&head, 10, 0);
 	insert_at_index(&head, 20, 1);
-	remove_node(&head, 1);
-    int value = GetValueIndex(head, 1);
+	remove_node(&head, 0);
+    int value = GetValueIndex(head, 0);
     printf(" gia tri index: %d\n", value);  
     node* current = head;
     while (current != NULL) {
