@@ -15,21 +15,32 @@ node* create_node(int value) {
     new_node->next = NULL;
     return new_node;
 }
-
-void insert_tail(node** head_ref, int value) {
+//Insert: chèn node vào linked list ở vị trí index
+//- input:
+//*linked_list_t * địa của đối tượng linked lisst, mà ta sẽ insert đối tượng vào
+//* int value : giá trị của node.
+//* int index : vị trí node được insert vào.
+//- Output : void
+//- Gợi ý : giống như add chúng ta cũng cần cấp phát động, và chúng ta cần update lại previous_node của node trước nó
+void insert_at_index(node** head_ref, int value, int index) {
     node* new_node = create_node(value);
-
-    if (*head_ref == NULL) {
+    if (index == 0) {
+        new_node->next = *head_ref;
         *head_ref = new_node;
+        return;
     }
-    else {
-        node* temp = *head_ref;
-        while (temp->next != NULL)
-            temp = temp->next;
-        temp->next = new_node;
+    node* current = *head_ref;
+    for (int i = 0; i < index - 1 && current != NULL; i++) {
+        current = current->next;
     }
+    if (current == NULL) {
+        printf("Vị trí không hợp lệ!\n");
+        free(new_node);
+        return;
+    }
+    new_node->next = current->next;
+    current->next = new_node;
 }
-
 int GetValueIndex(node* head, int index) {
     if (head == NULL || index < 0)
         return -1;
@@ -49,11 +60,9 @@ int GetValueIndex(node* head, int index) {
 int main() {
     node* head = NULL;
 
-    insert_tail(&head, 10);
-    insert_tail(&head, 20);
-    insert_tail(&head, 30);
+	insert_at_index(&head, 10, 0);
 
-    int value = GetValueIndex(head, 2);
+    int value = GetValueIndex(head, 0);
     printf(" gia tri index: %d\n", value);  
     node* current = head;
     while (current != NULL) {
