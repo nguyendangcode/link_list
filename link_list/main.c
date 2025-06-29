@@ -41,6 +41,29 @@ void insert_at_index(node** head_ref, int value, int index) {
     new_node->next = current->next;
     current->next = new_node;
 }
+void remove_node(node** head_ref, int index) {
+    if( *head_ref == NULL || index < 0) {
+        printf("Vị trí không hợp lệ!\n");
+        return;
+	}
+    else if(index == 0) {
+        node* temp = *head_ref;
+        *head_ref = (*head_ref)->next;
+        free(temp);
+        return;
+	}
+    node* current = *head_ref;
+    for(int i = 0; current != NULL && i < index - 1; i++) {
+        current = current->next;
+    }
+    if(current == NULL || current->next == NULL) {
+        printf("Vị trí không hợp lệ!\n");
+        return;
+    }
+    node* next_node = current->next->next;
+    free(current->next);
+	current->next = next_node;
+}
 int GetValueIndex(node* head, int index) {
     if (head == NULL || index < 0)
         return -1;
@@ -61,8 +84,9 @@ int main() {
     node* head = NULL;
 
 	insert_at_index(&head, 10, 0);
-
-    int value = GetValueIndex(head, 0);
+	insert_at_index(&head, 20, 1);
+	remove_node(&head, 1);
+    int value = GetValueIndex(head, 1);
     printf(" gia tri index: %d\n", value);  
     node* current = head;
     while (current != NULL) {
