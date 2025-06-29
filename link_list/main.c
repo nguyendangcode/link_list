@@ -60,6 +60,17 @@ void remove_node(node** head_ref, int index) {
     free(current->next);
 	current->next = next_node;
 }
+void sreach_value(node* head, int value) {
+    node* current = head;
+    int cnt = 0;
+    while (current != NULL) {
+        if( current->value == value) {
+            printf("index %d được tìm thấy tại gia tri %d\n", value, cnt);
+		}
+        cnt++;
+        current = current->next;
+    }
+}
 int GetValueIndex(node* head, int index) {
     if (head == NULL || index < 0)
         return -1;
@@ -79,11 +90,10 @@ int GetValueIndex(node* head, int index) {
 int main() {
     node* head = NULL;
 
-	insert_at_index(&head, 10, 0);
-	insert_at_index(&head, 20, 1);
-	remove_node(&head, 0);
-    int value = GetValueIndex(head, 0);
-    printf(" gia tri index: %d\n", value);  
+	insert_at_index(&head, 20, 0);
+	insert_at_index(&head, 30, 1);
+    insert_at_index(&head, 20, 2);
+	sreach_value(head, 20);
     node* current = head;
     while (current != NULL) {
         node* temp = current;
