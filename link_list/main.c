@@ -54,8 +54,7 @@ int main() {
     insert_tail(&head, 30);
 
     int value = GetValueIndex(head, 2);
-    printf(" gia tri index: %d\n", value);  // Kết quả: 20
-
+    printf(" gia tri index: %d\n", value);  
     node* current = head;
     while (current != NULL) {
         node* temp = current;
